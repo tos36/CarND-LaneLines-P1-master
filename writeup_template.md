@@ -1,9 +1,5 @@
 # **Finding Lane Lines on the Road** 
 
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Finding Lane Lines on the Road**
@@ -23,9 +19,16 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+My pipeline consisted of 5 steps. 
+1. Convert the images to grayscale.
+2. Apply Gaussian noise kernel
+3. Apply Canny transform
+4. Apply image-masking to clip ROI
+5. Draw lane lines. Here I modified the draw_lines() function as follows.
+  a. Calcurate hough lines from the processed image
+  b. Classify the line(start point and end point) to two classes depends on each slopes. Left-lane and right-lane.
+  c. Fit lines for each list of points
+6. Return the image with lines
 
 If you'd like to include images to show how the pipeline works, here is how to include an image: 
 
@@ -34,10 +37,11 @@ If you'd like to include images to show how the pipeline works, here is how to i
 
 ### 2. Identify potential shortcomings with your current pipeline
 
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
+a. This function wouldn't work for curve since it uses only linear lines.
+b. When the lane mark of the next lane was detected, it would classifyed to the one of the classes and the lane detection is disturbed 
+c. Robustness against blur lane mark.
+d. Robustness against image contrast. (e.g. Nithgt)
+e. It wouldn
 
 
 ### 3. Suggest possible improvements to your pipeline
